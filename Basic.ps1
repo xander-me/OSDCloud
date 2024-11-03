@@ -7,7 +7,7 @@ Import-Module OSD -Force
 #   OS: Params and Start-OSDCloud
 #=======================================================================
 $Params = @{
-	OSVersion = "Windows 11"
+    OSVersion = "Windows 11"
     OSBuild = "23H2"
     OSEdition = "Pro"
     OSLanguage = "da-dk"
