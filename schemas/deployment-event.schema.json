@@ -1,0 +1,141 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://using-it.dk/schemas/osdcloud/deployment-event/1.0",
+  "title": "OSDCloud Deployment Event",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "eventId",
+    "eventTime",
+    "deploymentId",
+    "source",
+    "phase",
+    "component",
+    "eventName",
+    "status"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "const": "1.0"
+    },
+    "eventId": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "eventTime": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "deploymentId": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "customerId": {
+      "type": ["string", "null"],
+      "minLength": 1,
+      "maxLength": 128
+    },
+    "siteId": {
+      "type": ["string", "null"],
+      "minLength": 1,
+      "maxLength": 128
+    },
+    "edgeId": {
+      "type": ["string", "null"],
+      "minLength": 1,
+      "maxLength": 128
+    },
+    "source": {
+      "enum": [
+        "edge",
+        "winpe",
+        "windows",
+        "control",
+        "customer-worker",
+        "intune-enricher"
+      ]
+    },
+    "phase": {
+      "enum": [
+        "Detected",
+        "Booting",
+        "WinPE",
+        "Authorized",
+        "DeployingOS",
+        "WindowsSetup",
+        "Autopilot",
+        "IntuneProvisioning",
+        "ReadinessValidation",
+        "Complete"
+      ]
+    },
+    "component": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 128
+    },
+    "eventName": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 128,
+      "pattern": "^[A-Za-z][A-Za-z0-9]+$"
+    },
+    "status": {
+      "enum": [
+        "Pending",
+        "Running",
+        "Success",
+        "Warning",
+        "Failed",
+        "Blocked",
+        "Cancelled",
+        "TimedOut"
+      ]
+    },
+    "progressPercent": {
+      "type": ["number", "null"],
+      "minimum": 0,
+      "maximum": 100
+    },
+    "message": {
+      "type": ["string", "null"],
+      "maxLength": 2048
+    },
+    "durationMs": {
+      "type": ["integer", "null"],
+      "minimum": 0
+    },
+    "device": {
+      "type": ["object", "null"],
+      "additionalProperties": false,
+      "properties": {
+        "serialNumber": {"type": ["string", "null"], "maxLength": 256},
+        "manufacturer": {"type": ["string", "null"], "maxLength": 256},
+        "model": {"type": ["string", "null"], "maxLength": 256},
+        "deviceName": {"type": ["string", "null"], "maxLength": 256},
+        "autopilotDeviceId": {"type": ["string", "null"], "maxLength": 256},
+        "entraDeviceId": {"type": ["string", "null"], "maxLength": 256},
+        "intuneDeviceId": {"type": ["string", "null"], "maxLength": 256}
+      }
+    },
+    "error": {
+      "type": ["object", "null"],
+      "additionalProperties": false,
+      "required": ["code", "category", "message"],
+      "properties": {
+        "code": {"type": "string", "minLength": 1, "maxLength": 256},
+        "category": {"type": "string", "minLength": 1, "maxLength": 128},
+        "message": {"type": "string", "minLength": 1, "maxLength": 2048},
+        "isRetryable": {"type": ["boolean", "null"]}
+      }
+    },
+    "properties": {
+      "type": ["object", "null"],
+      "maxProperties": 64,
+      "additionalProperties": {
+        "type": ["string", "number", "integer", "boolean", "null"]
+      }
+    }
+  }
+}
