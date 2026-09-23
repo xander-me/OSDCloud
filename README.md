@@ -181,3 +181,7 @@ For implementation, read in this order:
 The first engineering goal is intentionally small:
 
 > **UEFI PXE → local Edge responder → HTTP-delivered WinPE → telemetry event visible in Log Analytics, without WDS and without USB media.**
+
+## Current work and handoff
+
+Read [STATUS.md](STATUS.md) for current work, evidence, blockers and the next action. This README remains the project entry point; the handoff is a dated record and must be checked against live Git/issue state.
